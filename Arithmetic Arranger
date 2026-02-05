@@ -1,4 +1,4 @@
-def arithmeticArranger(problems, showAnswers=False):
+def arithmeticArranger(problems, showAnswers = False):
 
     # Defines lines as empty strings
     line1 = ""
@@ -59,8 +59,12 @@ def arithmeticArranger(problems, showAnswers=False):
         # Defines the fourth line
         line4 = line4 + "    " + answerShifted
     
-    # Prints the output
-    print(f'{line1[4:]}\n{line2}\n{line3}\n{line4[4:]}')
+    # Prints output
+    if showAnswers == True:
+        print(f'{line1[4:]}\n{line2}\n{line3}\n{line4[4:]}')
+        
+    elif showAnswers == False:
+        print(f'{line1[4:]}\n{line2}\n{line3}')
 
 def userInput():
     
@@ -112,9 +116,22 @@ def userInput():
         # Splits the input into separate parts
         problemList = problemList.split()
         
-        # Removes leading zeros
-        problemList[0] = problemList[0].lstrip('0')
-        problemList[2] = problemList[2].lstrip('0')
+        if len(problemList) != 3:
+            print("Error: Enter a valid operation.")
+            continue
+        
+        # Removes leading zeros unless user inputs zero as a number
+        if problemList[0] != '0':
+            problemList[0] = problemList[0].lstrip('0')
+            
+        if problemList[2] != '0':
+            problemList[2] = problemList[2].lstrip('0')
+            
+        if problemList[0] == "":
+            problemList[0] = '0'
+            
+        if problemList[2] == "":
+            problemList[2] = '0'
         
         A = problemList[0]
         B = problemList[1]
@@ -144,6 +161,6 @@ def userInput():
             continue
     
     # Calls arithmetic arranger function
-    arithmeticArranger(problems, True)
+    arithmeticArranger(problems, False)
     
 userInput()
