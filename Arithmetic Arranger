@@ -1,0 +1,149 @@
+def arithmeticArranger(problems, showAnswers=False):
+
+    # Defines lines as empty strings
+    line1 = ""
+    line2 = ""
+    line3 = ""
+    line4 = ""
+    
+    # Defines dashes as an empty string
+    dashes = ""
+    
+    # Iterates over each problem
+    for problem in problems:
+        
+        # Assigns numbers and operator to their variables
+        num1 = problem[0]
+        operator = problem[1]
+        num2 = problem[2]
+        
+        # Identifies the larger number
+        largerNumber = max(len(num1),len(num2))
+        
+        # Right shifts num1
+        num1Shifted = num1.rjust(largerNumber + 2)
+        
+        # Right shifts num2
+        num2Shifted = num2.rjust(largerNumber + 1)
+        
+        # Defines the first line
+        line1 = line1 + "    " + num1Shifted
+        
+        # Defines the second line
+        line2 = line2 + operator + num2Shifted + "    "
+        
+        # Calculates the number of dashes necessary
+        numDashes = max(len(num1),len(num2)) + 2
+        
+        # Iterates to generate dashes
+        i = 0
+        while i < numDashes:
+            dashes = dashes + "-"
+            i += 1
+        
+        # Defines the third line
+        line3 = line3 + dashes  + "    "
+        
+        # Clears the dashes
+        dashes = ""
+        
+        if operator == '+':
+            answer = int(num1) + int(num2)
+            
+        elif operator == '-':
+            answer = int(num1) - int(num2)
+        
+        # Right shifts the sum
+        answerShifted = str(answer).rjust(largerNumber + 2)
+        
+        # Defines the fourth line
+        line4 = line4 + "    " + answerShifted
+    
+    # Prints the output
+    print(f'{line1[4:]}\n{line2}\n{line3}\n{line4[4:]}')
+
+def userInput():
+    
+    # Defines problems as an empty array
+    problems = []
+    
+    # Starter text
+    print("Arithmetic Arranger\n")
+    print("Rules: ")
+    print("1. Must have 5 or less problems")
+    print("2. Operator must be '+' or '-'")
+    print("3. Numbers must only contain digits")
+    print("4. Numbers cannot be more than four digits")
+    
+    while True:
+        
+        # Takes user input
+        problemList = input("\nEnter your list of problems, type 'done' to finish: " )
+        
+        # Reformats user input
+        if '+' in problemList:
+            problemList = problemList.replace(' ','')
+            problemList = problemList.replace('+',' + ')
+            
+        elif '-' in problemList:
+            problemList = problemList.replace(' ','')
+            problemList = problemList.replace('-',' - ')
+        
+        # Validates the operator
+        elif '/' in problemList:
+            print("Error: Operator must be '+' or '-'.")
+            print("Please try again.\n")
+            continue
+        
+        elif '*' in problemList:
+            print("Error: Operator must be '+' or '-'.")
+            print("Please try again.\n")
+            continue
+
+        # Exits the program
+        elif problemList == 'done':
+            break
+        
+        # Validates the operation
+        else:
+            print("Error: Please enter a valid operation.")
+            continue
+        
+        # Splits the input into separate parts
+        problemList = problemList.split()
+        
+        # Removes leading zeros
+        problemList[0] = problemList[0].lstrip('0')
+        problemList[2] = problemList[2].lstrip('0')
+        
+        A = problemList[0]
+        B = problemList[1]
+        C = problemList[2]
+        
+        # Validates length of numbers
+        if len(A) > 4 or len(C) > 4:
+            print("Error: Number cannot be more than four digits.")
+            print("Please try again.\n")
+            continue
+        
+        # Validates that numbers are only numeric
+        if A.isdigit() == False or C.isdigit() == False:
+            print("Error: Numbers must only contain digits.")
+            print("Please try again.\n")
+            continue
+        
+        # Appends problems to the array
+        problems.append(problemList)
+        
+        # Validates that there are only 5 problems
+        if len(problems) > 5:
+            print('\nError: Too many problems.')
+            print('Must have 5 or less problems.')
+            print("Please type 'done' to finish\n")
+            problems.pop()
+            continue
+    
+    # Calls arithmetic arranger function
+    arithmeticArranger(problems, True)
+    
+userInput()
