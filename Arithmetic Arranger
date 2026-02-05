@@ -132,7 +132,8 @@ def userInput():
             
         if problemList[2] == "":
             problemList[2] = '0'
-        
+
+        # Assigns validation variables
         A = problemList[0]
         B = problemList[1]
         C = problemList[2]
