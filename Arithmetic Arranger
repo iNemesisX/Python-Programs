@@ -81,21 +81,21 @@ def userInput():
         problemList = input("\nEnter your list of problems, type 'done' to finish: " )
         
         # Reformats user input
-        if '+' in problemList:
+        if '+' in problemList and len(problemList) > 1:
             problemList = problemList.replace(' ','')
             problemList = problemList.replace('+',' + ')
             
-        elif '-' in problemList:
+        elif '-' in problemList and len(problemList) > 1:
             problemList = problemList.replace(' ','')
             problemList = problemList.replace('-',' - ')
         
         # Validates the operator
-        elif '/' in problemList:
+        elif '/' in problemList and len(problemList) > 1:
             print("Error: Operator must be '+' or '-'.")
             print("Please try again.\n")
             continue
         
-        elif '*' in problemList:
+        elif '*' in problemList and len(problemList) > 1:
             print("Error: Operator must be '+' or '-'.")
             print("Please try again.\n")
             continue
